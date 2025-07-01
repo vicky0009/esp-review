@@ -56,10 +56,10 @@
         .donut-chart-container {
             position: relative;
             width: 100%;
-            max-width: 350px;
+            max-width: 300px;
             margin-left: auto;
             margin-right: auto;
-            height: 350px;
+            height: 300px;
         }
         .reveal {
             opacity: 0;
@@ -174,33 +174,7 @@
             </div>
         </section>
 
-        <section id="outcomes" class="mb-20">
-            <h2 class="text-3xl font-bold text-center mb-10 text-lightest reveal">Projected Outcomes (Q1 FY26: July - Sep 2025)</h2>
-            <div class="card p-6 rounded-xl shadow-lg reveal">
-                <p class="text-center text-lg text-gray-400 mb-6">By focusing on my development goals, I project the following contributions to our team's success in the next quarter.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="donut-chart-container">
-                        <canvas id="outcomesChart"></canvas>
-                    </div>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-bold text-lg text-lightest flex items-center"><span class="w-4 h-4 rounded-full bg-[#64ffda] mr-3"></span>Increased Operational Efficiency</h4>
-                            <p class="ml-7 text-gray-400">Further automate manual processes, saving significant man-hours and reducing operational costs.</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg text-lightest flex items-center"><span class="w-4 h-4 rounded-full bg-[#30d5c8] mr-3"></span>Data-Driven Revenue Enablement</h4>
-                            <p class="ml-7 text-gray-400">Enhance predictive models to better identify sales opportunities and reduce customer churn.</p>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg text-lightest flex items-center"><span class="w-4 h-4 rounded-full bg-[#00a2af] mr-3"></span>Enhanced System Scalability</h4>
-                            <p class="ml-7 text-gray-400">Improve reliability and governance of our AI systems through MLOps best practices.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="support" class="reveal">
+        <section id="support" class="mb-20 reveal">
              <h2 class="text-3xl font-bold text-center mb-10 text-lightest">How Leadership Can Help</h2>
              <div class="card p-8 rounded-xl shadow-lg max-w-4xl mx-auto">
                  <ol class="space-y-4 text-lg list-decimal list-inside">
@@ -210,6 +184,23 @@
                      <li class="text-gray-400"><span class="font-semibold text-lightest">Innovation Time:</span> Allocate dedicated time for R&D on emerging AI technologies to maintain our competitive edge.</li>
                  </ol>
              </div>
+        </section>
+
+        <section id="outcomes" class="reveal">
+            <h2 class="text-3xl font-bold text-center mb-10 text-lightest">Future Impact & Value Generation (Q1 FY26)</h2>
+            <div class="card p-8 rounded-xl shadow-lg">
+                <p class="text-center text-lg text-gray-400 mb-8">With this support, I will focus on translating my development into direct business value by solving day-to-day issues and creating opportunities for revenue growth.</p>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
+                    <div class="md:col-span-2 donut-chart-container">
+                        <canvas id="outcomesDonutChart"></canvas>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="chart-container" style="height: 350px;">
+                            <canvas id="outcomesBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </div>
@@ -373,49 +364,75 @@
                 }
             }
 
-            function renderOutcomesChart() {
-                const outcomesCtx = document.getElementById('outcomesChart');
-                if(outcomesCtx) {
-                    new Chart(outcomesCtx, {
+            function renderOutcomesCharts() {
+                const donutCtx = document.getElementById('outcomesDonutChart');
+                if(donutCtx) {
+                    new Chart(donutCtx, {
                         type: 'doughnut',
                         data: {
-                            labels: ['Operational Efficiency', 'Revenue Enablement', 'System Scalability'],
+                            labels: ['Revenue Enablement', 'Operational Efficiency', 'System Scalability'],
                             datasets: [{
-                                label: 'Projected Impact',
-                                data: [45, 35, 20],
-                                backgroundColor: [
-                                    '#64ffda',
-                                    '#30d5c8',
-                                    '#00a2af',
-                                ],
+                                label: 'Projected Focus',
+                                data: [40, 35, 25],
+                                backgroundColor: ['#64ffda', '#30d5c8', '#00a2af'],
                                 borderColor: '#0a192f',
                                 borderWidth: 4,
                                 hoverOffset: 8
                             }]
                         },
                         options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
+                            responsive: true, maintainAspectRatio: false,
                             plugins: {
-                                legend: {
-                                    display: false
-                                },
-                                title: {
-                                    display: false
-                                },
+                                legend: { position: 'bottom', labels: { color: '#8892b0', font: { size: 12 } } },
+                                title: { display: true, text: 'Projected Focus Areas', font: { size: 16, weight: 'bold' }, color: '#ccd6f6', padding: { bottom: 15 } },
                                 tooltip: {
-                                    backgroundColor: '#020c1b',
-                                    titleColor: '#ccd6f6',
-                                    bodyColor: '#ccd6f6',
-                                    borderColor: '#64ffda',
-                                    borderWidth: 1,
+                                    backgroundColor: '#020c1b', titleColor: '#ccd6f6', bodyColor: '#ccd6f6', borderColor: '#64ffda', borderWidth: 1,
                                     callbacks: {
                                         title: function(tooltipItems) {
                                             const item = tooltipItems[0];
                                             let label = item.chart.data.labels[item.dataIndex];
-                                            if (Array.isArray(label)) {
-                                              return label.join(' ');
-                                            }
+                                            if (Array.isArray(label)) { return label.join(' '); }
+                                            return label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                const barCtx = document.getElementById('outcomesBarChart');
+                if(barCtx) {
+                     new Chart(barCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: [['Improved Sales', 'Lead Scoring'], ['Reduced Manual', 'Reporting'], ['Faster Model', 'Deployment']],
+                            datasets: [{
+                                label: 'Projected Improvement',
+                                data: [80, 90, 75],
+                                backgroundColor: 'rgba(100, 255, 218, 0.2)',
+                                borderColor: '#64ffda',
+                                borderWidth: 1,
+                                borderRadius: 5,
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true, maintainAspectRatio: false,
+                            scales: {
+                                x: { max: 100, title: { display: true, text: 'Projected Impact Score', font: { size: 14, weight: 'bold' }, color: '#8892b0' }, grid: { color: 'rgba(100, 255, 218, 0.1)' }, ticks: { color: '#8892b0' } },
+                                y: { grid: { display: false }, ticks: { color: '#ccd6f6', font: { size: 14 } } }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                title: { display: true, text: 'Specific Value Generation', font: { size: 16, weight: 'bold' }, color: '#ccd6f6', padding: { bottom: 15 } },
+                                tooltip: {
+                                    backgroundColor: '#020c1b', titleColor: '#ccd6f6', bodyColor: '#ccd6f6', borderColor: '#64ffda', borderWidth: 1,
+                                    callbacks: {
+                                        title: function(tooltipItems) {
+                                            const item = tooltipItems[0];
+                                            let label = item.chart.data.labels[item.dataIndex];
+                                            if (Array.isArray(label)) { return label.join(' '); }
                                             return label;
                                         }
                                     }
@@ -427,7 +444,7 @@
             }
 
             renderAchievementsChart();
-            renderOutcomesChart();
+            renderOutcomesCharts();
         });
     </script>
 </body>
