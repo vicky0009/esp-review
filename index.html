@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP Infographic - Vickram Ravi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Cyberpunk Night -->
+    <!-- Application Structure Plan: The infographic is structured as a narrative for a manager. It starts with a high-level SWOT analysis to provide an immediate snapshot of the current state. It then flows into "Key Achievements" to quantify recent impact and demonstrate value. Next, it presents "Development Goals" as a clear path forward, showing ambition and planning. Finally, it outlines "How Leadership Can Help," providing actionable steps for collaboration. This logical flow (Present -> Past -> Future -> Partnership) is intuitive for a performance review conversation and makes the information easy to consume in a single scroll. -->
+    <!-- Visualization & Content Choices: 
+        - SWOT Analysis -> Goal: Organize -> Method: 2x2 grid of styled "glassmorphism" cards with Unicode icons. -> Interaction: Scroll-triggered animations. -> Justification: Provides a modern, scannable overview of qualitative analysis. -> Method: Tailwind CSS. NO SVG/Mermaid.
+        - Key Achievements -> Goal: Inform/Compare -> Method: Chart.js Horizontal Bar Chart with a dark theme. -> Interaction: Tooltips on hover, animated bars. -> Justification: A chart provides a powerful visual comparison of the magnitude of impact, fitting the high-tech theme. -> Library: Chart.js. NO SVG/Mermaid.
+        - Development Goals -> Goal: Organize/Change -> Method: Animated vertical timeline with glowing nodes. -> Interaction: Staggered animation on scroll. -> Justification: Visually represents a forward-looking plan and journey. -> Method: Tailwind CSS. NO SVG/Mermaid.
+        - Support Needs -> Goal: Organize -> Method: Numbered list within a "glassmorphism" card. -> Interaction: Static, clear requests. -> Justification: Direct and actionable presentation suitable for requests to leadership. -> Method: Tailwind CSS. NO SVG/Mermaid.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020c1b;
+            color: #8892b0;
+        }
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .main-content {
+            position: relative;
+            z-index: 1;
+        }
+        .card {
+            background: rgba(10, 25, 47, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.05);
+        }
+        .text-lightest { color: #ccd6f6; }
+        .text-accent { color: #64ffda; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 450px;
+        }
+        .donut-chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <canvas id="particle-canvas"></canvas>
+    <div class="main-content container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-16 reveal">
+            <h1 class="text-4xl md:text-5xl font-bold text-lightest mb-2">ESP Review: Data, AI & Engineering</h1>
+            <p class="text-xl text-accent">Vickram Ravi - FY26 Q1 Performance & Growth Plan</p>
+        </header>
+
+        <section id="swot" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-10 text-lightest reveal">Personal SWOT Analysis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="card p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-2 reveal" style="transition-delay: 100ms;">
+                    <h3 class="text-2xl font-semibold mb-3 flex items-center text-accent"><span class="text-3xl mr-3">💪</span> Strengths</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-400">
+                        <li><span class="font-semibold text-lightest">Full-Stack Data Expertise:</span> Seamlessly bridging the gap between Data Analysis, Data Engineering, and AI implementation.</li>
+                        <li><span class="font-semibold text-lightest">AI-Powered Automation:</span> Proven ability to architect robust AI solutions that replace manual processes and drive efficiency.</li>
+                        <li><span class="font-semibold text-lightest">Business-Centric Engineering:</span> Translating complex business needs into scalable, maintainable data pipelines and infrastructure.</li>
+                        <li><span class="font-semibold text-lightest">Rapid Prototyping & Delivery:</span> Quickly moving from concept to a deployed, value-generating solution.</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-2 reveal" style="transition-delay: 200ms;">
+                    <h3 class="text-2xl font-semibold mb-3 flex items-center text-accent"><span class="text-3xl mr-3">🌱</span> Weaknesses (Development Areas)</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-400">
+                        <li><span class="font-semibold text-lightest">Formal Mentorship:</span> Eager to transition from informal guidance to formally mentoring junior data engineers and analysts.</li>
+                        <li><span class="font-semibold text-lightest">Enterprise Architecture Strategy:</span> Seeking to deepen expertise in high-level system design, focusing on cross-departmental data strategy.</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-2 reveal" style="transition-delay: 300ms;">
+                    <h3 class="text-2xl font-semibold mb-3 flex items-center text-accent"><span class="text-3xl mr-3">🚀</span> Opportunities</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-400">
+                        <li><span class="font-semibold text-lightest">Unified Data Platform:</span> Opportunity to lead the design of a unified data platform to serve multiple business units.</li>
+                        <li><span class="font-semibold text-lightest">AI Center of Excellence:</span> Establish a standardized framework for AI and automation to scale best practices across the company.</li>
+                        <li><span class="font-semibold text-lightest">Cross-functional Leadership:</span> Lead data-focused projects that involve engineering, analytics, and business stakeholder teams.</li>
+                    </ul>
+                </div>
+
+                <div class="card p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-2 reveal" style="transition-delay: 400ms;">
+                    <h3 class="text-2xl font-semibold mb-3 flex items-center text-accent"><span class="text-3xl mr-3">⚠️</span> Threats (Risks to Mitigate)</h3>
+                    <ul class="space-y-3 list-disc list-inside text-gray-400">
+                        <li><span class="font-semibold text-lightest">Technical Debt:</span> Rapid development requires a parallel focus on documentation and knowledge sharing to avoid key-person dependency.</li>
+                        <li><span class="font-semibold text-lightest">Technology Evolution:</span> The fast pace of AI requires dedicated time for R&D to ensure our solutions remain cutting-edge.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="achievements" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-10 text-lightest reveal">Key Achievements (Last Quarter)</h2>
+            <div class="card p-6 rounded-xl shadow-lg reveal">
+                <p class="text-center text-lg text-gray-400 mb-6">Delivered end-to-end solutions, from data engineering and analysis to AI model deployment.</p>
+                <div class="chart-container">
+                    <canvas id="achievementsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="goals" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-10 text-lightest reveal">Personal Development Goals</h2>
+            <div class="relative max-w-4xl mx-auto">
+                <div class="border-l-2 border-accent/20 absolute h-full top-0 left-4 md:left-1/2 md:-translate-x-1/2"></div>
+                
+                <div class="mb-8 flex justify-center items-center w-full reveal">
+                    <div class="order-1 md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-accent/80 shadow-xl w-8 h-8 rounded-full ring-4 ring-[#020c1b]">
+                        <h1 class="mx-auto font-semibold text-lg text-[#020c1b]">1</h1>
+                    </div>
+                    <div class="order-1 card rounded-xl shadow-lg md:w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-lightest text-xl">Become a Certified AI/Cloud Architect</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-400">Pursue Azure Solutions Architect or AI Engineer certification to design more robust data and AI platforms.</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 flex justify-center items-center w-full flex-row-reverse md:flex-row reveal">
+                    <div class="order-1 md:w-5/12"></div>
+                     <div class="z-10 flex items-center order-1 bg-accent/80 shadow-xl w-8 h-8 rounded-full ring-4 ring-[#020c1b]">
+                        <h1 class="mx-auto text-[#020c1b] font-semibold text-lg">2</h1>
+                    </div>
+                    <div class="order-1 card rounded-xl shadow-lg md:w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-lightest text-xl">Lead a Cross-Functional Data Project</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-400">Take ownership of a project that integrates data engineering, analysis, and business intelligence to deliver a complete solution.</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 flex justify-center items-center w-full reveal">
+                     <div class="order-1 md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-accent/80 shadow-xl w-8 h-8 rounded-full ring-4 ring-[#020c1b]">
+                        <h1 class="mx-auto font-semibold text-lg text-[#020c1b]">3</h1>
+                    </div>
+                    <div class="order-1 card rounded-xl shadow-lg md:w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-lightest text-xl">Master Enterprise MLOps</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-400">Implement a full MLOps pipeline to standardize model deployment, monitoring, and governance for our AI systems.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="outcomes" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-10 text-lightest reveal">Projected Outcomes (Q1 FY26: July - Sep 2025)</h2>
+            <div class="card p-6 rounded-xl shadow-lg reveal">
+                <p class="text-center text-lg text-gray-400 mb-6">By focusing on my development goals, I project the following contributions to our team's success in the next quarter.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="donut-chart-container">
+                        <canvas id="outcomesChart"></canvas>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold text-lg text-lightest flex items-center"><span class="w-4 h-4 rounded-full bg-[#64ffda] mr-3"></span>Increased Operational Efficiency</h4>
+                            <p class="ml-7 text-gray-400">Further automate manual processes, saving significant man-hours and reducing operational costs.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg text-lightest flex items-center"><span class="w-4 h-4 rounded-full bg-[#30d5c8] mr-3"></span>Data-Driven Revenue Enablement</h4>
+                            <p class="ml-7 text-gray-400">Enhance predictive models to better identify sales opportunities and reduce customer churn.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg text-lightest flex items-center"><span class="w-4 h-4 rounded-full bg-[#00a2af] mr-3"></span>Enhanced System Scalability</h4>
+                            <p class="ml-7 text-gray-400">Improve reliability and governance of our AI systems through MLOps best practices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="support" class="reveal">
+             <h2 class="text-3xl font-bold text-center mb-10 text-lightest">How Leadership Can Help</h2>
+             <div class="card p-8 rounded-xl shadow-lg max-w-4xl mx-auto">
+                 <ol class="space-y-4 text-lg list-decimal list-inside">
+                     <li class="text-gray-400"><span class="font-semibold text-lightest">Strategic Alignment:</span> Provide clear insight into the company's data maturity and AI adoption roadmap.</li>
+                     <li class="text-gray-400"><span class="font-semibold text-lightest">Skill Investment:</span> Support advanced training and certifications in cloud architecture and AI engineering.</li>
+                     <li class="text-gray-400"><span class="font-semibold text-lightest">Growth Pathways:</span> Offer mentorship from senior data architects and grant ownership of a strategic data initiative.</li>
+                     <li class="text-gray-400"><span class="font-semibold text-lightest">Innovation Time:</span> Allocate dedicated time for R&D on emerging AI technologies to maintain our competitive edge.</li>
+                 </ol>
+             </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Particle background animation
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            let particlesArray;
+
+            class Particle {
+                constructor(x, y, directionX, directionY, size, color) {
+                    this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = 'rgba(100, 255, 218, 0.5)';
+                    ctx.fill();
+                }
+                update() {
+                    if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
+                    if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                    this.draw();
+                }
+            }
+
+            function initParticles() {
+                particlesArray = [];
+                let numberOfParticles = (canvas.height * canvas.width) / 12000;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 1.5) + 1;
+                    let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                    let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                    let directionX = (Math.random() * 0.3) - 0.15;
+                    let directionY = (Math.random() * 0.3) - 0.15;
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size));
+                }
+            }
+
+            function animateParticles() {
+                requestAnimationFrame(animateParticles);
+                ctx.clearRect(0, 0, innerWidth, innerHeight);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+            }
+            
+            window.addEventListener('resize', function() {
+                canvas.width = innerWidth;
+                canvas.height = innerHeight;
+                initParticles();
+            });
+            
+            initParticles();
+            animateParticles();
+
+            // Scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Chart.js implementation
+            function renderAchievementsChart() {
+                const achievementsData = {
+                    labels: [
+                        'Compliance AI Chatbot',
+                        'AI-Powered PDFReader',
+                        'HSC WebRoster Workflow',
+                        'Data Validation Framework',
+                    ],
+                    values: [90, 85, 70, 95]
+                };
+
+                const processLabel = (label) => {
+                    if (label.length <= 16) return label;
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    for (const word of words) {
+                        if ((currentLine + ' ' + word).trim().length > 16) {
+                            lines.push(currentLine.trim());
+                            currentLine = word;
+                        } else {
+                            currentLine = (currentLine + ' ' + word).trim();
+                        }
+                    }
+                    if (currentLine) lines.push(currentLine.trim());
+                    return lines;
+                };
+
+                const processedLabels = achievementsData.labels.map(processLabel);
+
+                const chartCtx = document.getElementById('achievementsChart');
+                if (chartCtx) {
+                    new Chart(chartCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: processedLabels,
+                            datasets: [{
+                                label: '% Improvement / Reduction',
+                                data: achievementsData.values,
+                                backgroundColor: 'rgba(100, 255, 218, 0.2)',
+                                borderColor: '#64ffda',
+                                borderWidth: 1,
+                                borderRadius: 5,
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    title: { display: true, text: 'Impact (%)', font: { size: 14, weight: 'bold' }, color: '#8892b0' },
+                                    grid: { color: 'rgba(100, 255, 218, 0.1)' },
+                                    ticks: { color: '#8892b0' }
+                                },
+                                y: { 
+                                    grid: { display: false }, 
+                                    ticks: { color: '#ccd6f6', font: { size: 14 } }
+                                }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                title: { display: true, text: 'Quantifiable Impact of Key Projects', font: { size: 18, weight: 'bold' }, color: '#ccd6f6', padding: { top: 10, bottom: 20 } },
+                                tooltip: {
+                                    backgroundColor: '#020c1b',
+                                    titleColor: '#ccd6f6',
+                                    bodyColor: '#ccd6f6',
+                                    borderColor: '#64ffda',
+                                    borderWidth: 1,
+                                    callbacks: {
+                                        title: function(tooltipItems) {
+                                            const item = tooltipItems[0];
+                                            let label = item.chart.data.labels[item.dataIndex];
+                                            if (Array.isArray(label)) {
+                                              return label.join(' ');
+                                            }
+                                            return label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            function renderOutcomesChart() {
+                const outcomesCtx = document.getElementById('outcomesChart');
+                if(outcomesCtx) {
+                    new Chart(outcomesCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Operational Efficiency', 'Revenue Enablement', 'System Scalability'],
+                            datasets: [{
+                                label: 'Projected Impact',
+                                data: [45, 35, 20],
+                                backgroundColor: [
+                                    '#64ffda',
+                                    '#30d5c8',
+                                    '#00a2af',
+                                ],
+                                borderColor: '#0a192f',
+                                borderWidth: 4,
+                                hoverOffset: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    backgroundColor: '#020c1b',
+                                    titleColor: '#ccd6f6',
+                                    bodyColor: '#ccd6f6',
+                                    borderColor: '#64ffda',
+                                    borderWidth: 1,
+                                    callbacks: {
+                                        title: function(tooltipItems) {
+                                            const item = tooltipItems[0];
+                                            let label = item.chart.data.labels[item.dataIndex];
+                                            if (Array.isArray(label)) {
+                                              return label.join(' ');
+                                            }
+                                            return label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            renderAchievementsChart();
+            renderOutcomesChart();
+        });
+    </script>
+</body>
+</html>
