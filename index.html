@@ -41,6 +41,11 @@
             backdrop-filter: blur(16px);
             border: 1px solid rgba(100, 255, 218, 0.2);
             box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            border-color: rgba(100, 255, 218, 0.5);
+            box-shadow: 0 0 25px rgba(100, 255, 218, 0.15), inset 0 0 2000px rgba(255, 255, 255, 0.05);
         }
         .text-lightest { color: #ccd6f6; }
         .text-accent { color: #64ffda; }
@@ -91,7 +96,7 @@
             <h2 class="text-3xl font-bold text-center mb-10 text-lightest reveal">Personal SWOT Analysis</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                <div class="card p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-2 reveal" style="transition-delay: 100ms;">
+                <div class="card p-6 rounded-xl shadow-lg transform hover:-translate-y-2 reveal" style="transition-delay: 100ms;">
                     <h3 class="text-2xl font-semibold mb-3 flex items-center text-accent"><span class="text-3xl mr-3">💪</span> Strengths</h3>
                     <ul class="space-y-3 list-disc list-inside text-gray-400">
                         <li><span class="font-semibold text-lightest">Full-Stack Data Expertise:</span> Seamlessly bridging the gap between Data Analysis, Data Engineering, and AI implementation.</li>
@@ -101,7 +106,7 @@
                     </ul>
                 </div>
 
-                <div class="card p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-2 reveal" style="transition-delay: 200ms;">
+                <div class="card p-6 rounded-xl shadow-lg transform hover:-translate-y-2 reveal" style="transition-delay: 200ms;">
                     <h3 class="text-2xl font-semibold mb-3 flex items-center text-accent"><span class="text-3xl mr-3">🌱</span> Weaknesses (Development Areas)</h3>
                     <ul class="space-y-3 list-disc list-inside text-gray-400">
                         <li><span class="font-semibold text-lightest">Formal Mentorship:</span> Eager to transition from informal guidance to formally mentoring junior data engineers and analysts.</li>
@@ -109,7 +114,7 @@
                     </ul>
                 </div>
 
-                <div class="card p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-2 reveal" style="transition-delay: 300ms;">
+                <div class="card p-6 rounded-xl shadow-lg transform hover:-translate-y-2 reveal" style="transition-delay: 300ms;">
                     <h3 class="text-2xl font-semibold mb-3 flex items-center text-accent"><span class="text-3xl mr-3">🚀</span> Opportunities</h3>
                     <ul class="space-y-3 list-disc list-inside text-gray-400">
                         <li><span class="font-semibold text-lightest">Unified Data Platform:</span> Opportunity to lead the design of a unified data platform to serve multiple business units.</li>
@@ -118,7 +123,7 @@
                     </ul>
                 </div>
 
-                <div class="card p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-2 reveal" style="transition-delay: 400ms;">
+                <div class="card p-6 rounded-xl shadow-lg transform hover:-translate-y-2 reveal" style="transition-delay: 400ms;">
                     <h3 class="text-2xl font-semibold mb-3 flex items-center text-accent"><span class="text-3xl mr-3">⚠️</span> Threats (Risks to Mitigate)</h3>
                     <ul class="space-y-3 list-disc list-inside text-gray-400">
                         <li><span class="font-semibold text-lightest">Technical Debt:</span> Rapid development requires a parallel focus on documentation and knowledge sharing to avoid key-person dependency.</li>
@@ -202,7 +207,7 @@
              </div>
         </section>
 
-        <section id="outcomes" class="reveal">
+        <section id="outcomes" class="mb-20 reveal">
             <h2 class="text-3xl font-bold text-center mb-10 text-lightest">Future Impact & Value Generation (Q1 FY26)</h2>
             <div class="card p-8 rounded-xl shadow-lg">
                 <p class="text-center text-lg text-gray-400 mb-8">With this support, I will focus on translating my development into direct business value by solving day-to-day issues and creating opportunities for revenue growth.</p>
@@ -215,6 +220,20 @@
                             <canvas id="outcomesBarChart"></canvas>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="initiatives" class="reveal">
+            <h2 class="text-3xl font-bold text-center mb-10 text-lightest">Proactive Initiatives for Next Quarter</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card p-6 rounded-xl shadow-lg transform hover:-translate-y-2 reveal" style="transition-delay: 100ms;">
+                    <h3 class="text-xl font-semibold mb-3 text-accent">Internal GenAI Tooling</h3>
+                    <p class="text-gray-400">Develop a standardized, reusable framework for building internal AI chatbots and document Q&A tools, enabling other teams to self-serve and automate their own knowledge management.</p>
+                </div>
+                <div class="card p-6 rounded-xl shadow-lg transform hover:-translate-y-2 reveal" style="transition-delay: 200ms;">
+                    <h3 class="text-xl font-semibold mb-3 text-accent">Predictive Analytics for Sales</h3>
+                    <p class="text-gray-400">Expand on the churn model by developing a new predictive lead scoring system to help the sales team prioritize high-value prospects, directly impacting revenue generation.</p>
                 </div>
             </div>
         </section>
